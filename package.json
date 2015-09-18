@@ -1,0 +1,24 @@
+{
+  "name": "lightswitch_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lightswitch",
+    "AWS",
+    "EC2",
+    "startup",
+    "shutdown",
+    "schedules"
+  ],
+  "author": "Krishnan Mani",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.4"
+  }
+}
