@@ -8,12 +8,24 @@ var params = {
     TableName: tableName
 };
 
+function putParams(email, name) {
+    return {
+        TableName: tableName,
+        Item: {
+            "email": email,
+            "name": name
+        },
+        ConditionExpression: "#email <> :email",
+        ExpressionAttributeNames: {"#email": "email"},
+        ExpressionAttributeValues: {
+            ":email": email
+        }
+    };
+}
+
 module.exports = {
     register: function (registration, callback) {
-        var item = {};
-        item["email"] = registration.email;
-        item["name"] = registration.name;
-        params.Item = item;
+        var params = putParams(registration.email, registration.name);
 
         dynamodbDoc.put(params, callback);
     },

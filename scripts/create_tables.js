@@ -38,11 +38,9 @@ function createTable(tableName) {
         TableName: tableName,
         KeySchema: [
             {AttributeName: "email", KeyType: "HASH"},
-            {AttributeName: "name", KeyType: "RANGE"}
         ],
         AttributeDefinitions: [
             {AttributeName: "email", AttributeType: "S"},
-            {AttributeName: "name", AttributeType: "S"}
         ],
         ProvisionedThroughput: {
             ReadCapacityUnits: 1,
