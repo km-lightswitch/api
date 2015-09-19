@@ -1,6 +1,6 @@
 var express = require('express');
 
-var routes = function(registrations) {
+var routes = function (registrations) {
     var registrationsRouter = express.Router()
 
     registrationsRouter.route('/')
@@ -11,17 +11,30 @@ var routes = function(registrations) {
                     res.status(500).send(err);
                 }
                 else {
+                    console.log(data);
                     res.json({email: body.email});
                 }
             });
         })
         .get(function (req, res) {
-            registrations.getRegistrations(function (err, data) {
+            registrations.listRegistrations(function (err, data) {
                 if (err) {
                     res.status(500).send(err);
                 }
                 else {
                     res.json(data.Items);
+                }
+            });
+        });
+
+    registrationsRouter.route('/:email')
+        .get(function (req, res) {
+            var email = req.params.email;
+            registrations.getRegistration(email, function (err, data) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.json(data.Item);
                 }
             });
         });

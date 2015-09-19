@@ -23,6 +23,15 @@ function putParams(email, name) {
     };
 }
 
+function getParams(email) {
+    return {
+        TableName: tableName,
+        Key: {
+            "email": email
+        }
+    };
+}
+
 module.exports = {
     register: function (registration, callback) {
         var params = putParams(registration.email, registration.name);
@@ -30,7 +39,14 @@ module.exports = {
         dynamodbDoc.put(params, callback);
     },
 
-    getRegistrations: function (callback) {
+    listRegistrations: function (callback) {
         dynamodbDoc.scan(params, callback);
+    },
+
+    getRegistration: function(email, callback) {
+        var params = getParams(email);
+        dynamodbDoc.get(params, callback);
     }
+
+
 };
