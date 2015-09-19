@@ -1,35 +1,13 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
-    registrations = require('./models/registrations');
+    registrations = require('./models/registrations'),
+    registrationsRouter = require('./routes/registrations_router')(registrations);
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var registrationsRouter = express.Router();
-registrationsRouter.route('/registrations')
-    .post(function (req, res) {
-        var body = req.body
-        registrations.register(body, function (err, data) {
-            if (err) {
-                res.status(500).send(err);
-            }
-            else {
-                res.json({email: body.email});
-            }
-        });
-    })
-    .get(function (req, res) {
-        registrations.getRegistrations(function (err, data) {
-            if (err) {
-                res.status(500).send(err);
-            }
-            else {
-                res.json(data.Items);
-            }
-        });
-    });
-app.use('/v1', registrationsRouter);
+app.use('/v1/registrations', registrationsRouter);
 
 app.get('/', function (req, res) {
     res.send('Welcome to the Lightswitch API');

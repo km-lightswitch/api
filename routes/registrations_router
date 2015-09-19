@@ -1,0 +1,32 @@
+var express = require('express');
+
+var routes = function(registrations) {
+    var registrationsRouter = express.Router()
+
+    registrationsRouter.route('/')
+        .post(function (req, res) {
+            var body = req.body
+            registrations.register(body, function (err, data) {
+                if (err) {
+                    res.status(500).send(err);
+                }
+                else {
+                    res.json({email: body.email});
+                }
+            });
+        })
+        .get(function (req, res) {
+            registrations.getRegistrations(function (err, data) {
+                if (err) {
+                    res.status(500).send(err);
+                }
+                else {
+                    res.json(data.Items);
+                }
+            });
+        });
+
+    return registrationsRouter;
+};
+
+module.exports = routes;
